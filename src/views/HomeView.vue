@@ -90,8 +90,10 @@ function navigateTo(view) {
           <p class="cta-text">
             Explore our accommodation options and plan your perfect getaway
           </p>
-          <button class="btn btn-secondary" @click="navigateTo('accommodation')">Explore Accommodation</button>
-          <button class="btn btn-secondary" @click="navigateTo('directions')">See How to Get Here</button>
+          <div class="hero-actions">
+            <button class="btn btn-secondary" @click="navigateTo('accommodation')">Explore Accommodation</button>
+            <button class="btn btn-secondary" @click="navigateTo('directions')">See How to Get Here</button>
+          </div>
         </div>
       </div>
     </section>
