@@ -1,40 +1,23 @@
 <script setup>
 import { content } from '../data/content.js'
 
-// Direction steps will be imported from data file later
-const directionSteps = [
+// Campsite location coordinates
+const campsiteCoordinates = {
+  dms: '1°03\'38.9"N 34°13\'09.7"E',
+  decimal: '1.060806, 34.219361'
+}
+
+// Direction images
+const directionImages = [
   {
-    id: 1,
-    title: 'From Kampala',
-    description: 'Take the main highway from Kampala towards Mbale. The journey is approximately 245km and takes about 4-5 hours.',
-    image: '/images/directions/from-kampala.jpg',
-    details: [
-      'Follow signs to Jinja',
-      'Continue through Jinja towards Mbale',
-      'The road is mostly paved and in good condition'
-    ]
+    src: `${import.meta.env.BASE_URL}images/directions/from_mbale_maps.png`,
+    alt: 'Route from Mbale showing the washed out bridge to avoid',
+    caption: 'Overview map from Mbale marking the route and washed out bridge'
   },
   {
-    id: 2,
-    title: 'Arriving in Mbale',
-    description: 'Once in Mbale town, head towards the foothills of Mount Elgon.',
-    image: '/images/directions/mbale-town.jpg',
-    details: [
-      'Look for signs to Wanale',
-      'Ask locals for "Three Waterfalls Campsite"',
-      'Stock up on supplies if needed - this is your last chance'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Final Approach',
-    description: 'Follow the road towards Wanale Ridge. The campsite is located along this route.',
-    image: '/images/directions/final-approach.jpg',
-    details: [
-      'The road becomes unpaved but is manageable',
-      'Look for our signage',
-      'Call us if you need assistance: David or Samuel'
-    ]
+    src: `${import.meta.env.BASE_URL}images/directions/final_approach_satellite.png`,
+    alt: 'Satellite view of campsite location',
+    caption: 'Satellite view showing exact location of the campsite'
   }
 ]
 </script>
@@ -73,34 +56,53 @@ const directionSteps = [
     <!-- Directions Steps Section -->
     <section class="directions-section">
       <div class="container">
-        <h2 class="section-title centered">Step-by-Step Directions</h2>
+        <h2 class="section-title centered">Instructions and Recommendations</h2>
 
-        <div class="steps-container">
-          <div
-            v-for="step in directionSteps"
-            :key="step.id"
-            class="direction-step"
-          >
-            <div class="step-header">
-              <span class="step-number">Step {{ step.id }}</span>
-              <h3 class="step-title">{{ step.title }}</h3>
-            </div>
-
-            <div class="step-image-placeholder">
-              <div class="placeholder-content">
-                <span class="placeholder-icon">🗺️</span>
-                <p class="placeholder-text">Map/Photo: {{ step.title }}</p>
-                <p class="placeholder-hint">Image path: {{ step.image }}</p>
+        <div class="directions-content">
+          <div class="route-description">
+            <h3 class="route-heading">From Mbale to Three Waterfalls Campsite</h3>
+            <p class="route-text">
+              We assume you are starting from Mbale town. From there, you can use your navigation app
+              to reach our exact coordinates:
+            </p>
+            <div class="coordinates-box">
+              <div class="coordinate-item">
+                <strong>DMS:</strong> {{ campsiteCoordinates.dms }}
+              </div>
+              <div class="coordinate-item">
+                <strong>Decimal:</strong> {{ campsiteCoordinates.decimal }}
               </div>
             </div>
+            <p class="route-text">
+              Follow the route along the <strong>Busamaga Wanale Road</strong>. This is the recommended
+              and safest route to reach the campsite.
+            </p>
+            <div class="warning-box">
+              <div class="warning-icon">⚠️</div>
+              <div class="warning-content">
+                <h4 class="warning-heading">Important: Avoid Bungokho Road</h4>
+                <p class="warning-text">
+                  Do <strong>NOT take the Bungokho Road</strong> route. The bridge downstream of Zesui is washed out,
+                  and the crossing is not safe. Please stick to the <strong>Busamaga Wanale Road</strong> for your safety.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="step-content">
-              <p class="step-description">{{ step.description }}</p>
-              <ul class="step-details">
-                <li v-for="(detail, index) in step.details" :key="index">
-                  {{ detail }}
-                </li>
-              </ul>
+          <div class="maps-container">
+            <div
+              v-for="(image, index) in directionImages"
+              :key="index"
+              class="map-item"
+            >
+              <div class="map-image-wrapper">
+                <img
+                  :src="image.src"
+                  :alt="image.alt"
+                  class="map-image"
+                />
+              </div>
+              <p class="map-caption">{{ image.caption }}</p>
             </div>
           </div>
         </div>
@@ -241,108 +243,119 @@ const directionSteps = [
   text-align: center;
 }
 
-.steps-container {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+.directions-content {
   max-width: 900px;
   margin: 0 auto;
 }
 
-.direction-step {
+.route-description {
   background-color: var(--color-light);
+  padding: 2.5rem;
   border-radius: 12px;
-  overflow: hidden;
+  margin-bottom: 3rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.step-header {
-  background-color: var(--color-primary);
-  color: var(--color-light);
-  padding: 1.5rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.step-number {
-  background-color: var(--color-accent);
-  color: var(--color-dark);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.875rem;
-}
-
-.step-title {
-  font-size: 1.5rem;
+.route-heading {
+  font-size: 1.75rem;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 1.5rem 0;
+  color: var(--color-dark);
 }
 
-.step-image-placeholder {
-  background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-
-.placeholder-content {
-  text-align: center;
-}
-
-.placeholder-icon {
-  font-size: 4rem;
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.placeholder-text {
-  color: #666;
-  font-weight: 600;
-  margin: 0 0 0.5rem 0;
-}
-
-.placeholder-hint {
-  color: #999;
-  font-size: 0.875rem;
-  font-style: italic;
-  margin: 0;
-}
-
-.step-content {
-  padding: 2rem;
-}
-
-.step-description {
+.route-text {
   font-size: 1.125rem;
   line-height: 1.7;
   margin: 0 0 1.5rem 0;
   color: var(--color-text);
 }
 
-.step-details {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.coordinates-box {
+  background-color: var(--color-background);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--color-primary);
+  margin: 1.5rem 0;
 }
 
-.step-details li {
-  padding: 0.75rem 0 0.75rem 2rem;
-  position: relative;
+.coordinate-item {
+  font-size: 1rem;
+  line-height: 1.8;
   color: var(--color-text);
-  line-height: 1.6;
 }
 
-.step-details li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: var(--color-accent);
-  font-weight: 700;
+.coordinate-item strong {
+  color: var(--color-dark);
+  margin-right: 0.5rem;
+}
+
+.warning-box {
+  background-color: #fff3cd;
+  border-left: 4px solid #ff9800;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.warning-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.warning-content {
+  flex: 1;
+}
+
+.warning-heading {
   font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  color: #8b5a00;
+}
+
+.warning-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  color: #664d00;
+}
+
+.maps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.map-item {
+  background-color: var(--color-light);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.map-image-wrapper {
+  width: 100%;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.map-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.map-caption {
+  padding: 1.5rem 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--color-text);
+  text-align: center;
+  font-style: italic;
 }
 
 .tips-section {
@@ -408,11 +421,7 @@ const directionSteps = [
 
 /* Desktop */
 @media (min-width: 1024px) {
-  .step-header {
-    padding: 2rem 3rem;
-  }
-
-  .step-content {
+  .route-description {
     padding: 3rem;
   }
 }

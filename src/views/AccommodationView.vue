@@ -1,6 +1,38 @@
 <script setup>
 import { accommodations, includedFeatures, importantInfo } from '../data/accommodations.js'
 import { content } from '../data/content.js'
+import ImageCarousel from '../components/ImageCarousel.vue'
+
+// Campsite images
+const campsiteImages = [
+  {
+    src: `${import.meta.env.BASE_URL}images/campsite/1.jpg`,
+    alt: 'Campsite view 1',
+    caption: 'Spacious camping area'
+  },
+  {
+    src: `${import.meta.env.BASE_URL}images/campsite/2.jpg`,
+    alt: 'Campsite view 2',
+    caption: 'Perfect spots for tents and rooftop setups'
+  },
+  {
+    src: `${import.meta.env.BASE_URL}images/campsite/3.jpg`,
+    alt: 'Campsite view 3'
+  },
+  {
+    src: `${import.meta.env.BASE_URL}images/campsite/4.jpg`,
+    alt: 'Campsite view 4'
+  }
+]
+
+// Cabin images
+const cabinImages = [
+  {
+    src: `${import.meta.env.BASE_URL}images/cabin/1.jpg`,
+    alt: 'Cabin view',
+    caption: 'Cabin with double bed'
+  }
+]
 </script>
 
 <template>
@@ -26,11 +58,16 @@ import { content } from '../data/content.js'
             :class="['accommodation-card', { featured: accommodation.featured }]"
           >
             <div v-if="accommodation.featured" class="featured-badge">Most Popular</div>
-            <div class="image-placeholder">
-              <div class="placeholder-content">
-                <span class="placeholder-icon">{{ accommodation.icon }}</span>
-              </div>
-            </div>
+            <ImageCarousel
+              v-if="accommodation.id === 'tent-sites'"
+              :images="campsiteImages"
+              height="300px"
+            />
+            <ImageCarousel
+              v-else-if="accommodation.id === 'cabins'"
+              :images="cabinImages"
+              height="300px"
+            />
             <div class="card-content">
               <h2 class="card-title">{{ accommodation.name }}</h2>
               <p class="card-description">

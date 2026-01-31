@@ -1,6 +1,8 @@
 // Accommodation options data
 // Edit this file to update accommodation information
 
+import { content } from './content.js'
+
 export const accommodations = [
   {
     id: 'tent-sites',
@@ -32,16 +34,18 @@ export const accommodations = [
   }
 ]
 
+// Included features - same for all accommodations
 export const includedFeatures = [
   'Access to showers and bathrooms',
   'Camp kitchen facilities',
   'Free parking'
 ]
 
+// Important info - references content.js for single source of truth
 export const importantInfo = [
-  'Check-in: 2:00 PM',
-  'Check-out: 11:00 AM',
-  'Quiet hours: 10:00 PM - 7:00 AM'
+  `Check-in: ${content.hours.checkIn}`,
+  `Check-out: ${content.hours.checkOut}`,
+  `Quiet hours: ${content.hours.quietHours}`
 ]
 
 export default accommodations

@@ -15,10 +15,10 @@ export const content = {
   },
 
   hours: {
-    checkIn: '2:00 PM',
-    checkOut: '11:00 AM',
+    checkIn: 'from mid-day onwards',
+    checkOut: 'flexible, just tell us in advance',
     reception: '8:00 AM - 8:00 PM',
-    quietHours: '10:00 PM - 7:00 AM',
+    quietHours: '10:00 PM - 6:00 AM',
   },
 
   // Add more content sections as needed

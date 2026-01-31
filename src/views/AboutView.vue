@@ -1,5 +1,30 @@
 <script setup>
 import { content } from '../data/content.js'
+import ImageCarousel from '../components/ImageCarousel.vue'
+
+// Historic photos for the carousel
+const historicPhotos = [
+  {
+    src: `${import.meta.env.BASE_URL}images/history/1.jpg`,
+    alt: 'Historic photo 1'
+  },
+  {
+    src: `${import.meta.env.BASE_URL}images/history/2.jpg`,
+    alt: 'Historic photo 2'
+  },
+  {
+    src: `${import.meta.env.BASE_URL}images/history/3.jpg`,
+    alt: 'Historic photo 3'
+  },
+  {
+    src: `${import.meta.env.BASE_URL}images/history/4.jpg`,
+    alt: 'Historic photo 4'
+  },
+  {
+    src: `${import.meta.env.BASE_URL}images/history/5.jpg`,
+    alt: 'Historic photo 5'
+  }
+]
 </script>
 
 <template>
@@ -42,12 +67,10 @@ import { content } from '../data/content.js'
             </p>
           </div>
 
-          <div class="image-placeholder">
-            <div class="placeholder-content">
-              <span class="placeholder-icon">🏞️</span>
-              <p class="placeholder-text">Historic photo placeholder</p>
-            </div>
-          </div>
+          <ImageCarousel
+            :images="historicPhotos"
+            height="450px"
+          />
         </div>
       </div>
     </section>
